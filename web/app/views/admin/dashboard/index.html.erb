@@ -1,0 +1,6 @@
+<h1>Admin</h1>
+
+<ul>
+  <li><%= link_to "#{@order_max} commandes en attente de confirmation", admin_orders_path %></li>
+  <li><%= link_to "#{@order_count} commandes confirmés", admin_form_path %></li>
+</ul>

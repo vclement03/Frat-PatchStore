@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: ./web
+    volumes:
+      - ./web/:/app
+    environment:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=ansdlkfandflnsadflkdsanf
+
+    ports:
+      - 3000:3000
+

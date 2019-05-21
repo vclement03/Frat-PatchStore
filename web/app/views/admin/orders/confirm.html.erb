@@ -1,0 +1,13 @@
+<h2>Confirmer la commande de <%= @order.full_name %> - <%= @order.email  %></h2>
+<p class="alert alert-warning">
+  Une fois la commande confirmé, le client sera remboursé le patchs refusées.
+</p>
+
+<%= render 'order', order: @order %>
+
+<hr/>
+
+<p>
+  <%= link_to 'Retour', admin_orders_path, class: 'btn btn-warning'  %>
+  <%= link_to 'Confirmer', admin_orders_complete_path(id: @order.id), method: 'post', class: 'btn btn-link'  %>
+</p>

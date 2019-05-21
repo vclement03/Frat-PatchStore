@@ -1,0 +1,28 @@
+<h2>Orders</h2>
+<p>
+  Commandes en attente d'approbation
+</p>
+
+<% @orders.each do |order| %>
+  <b><%= order.full_name %> - <%= order.email %></b>
+  <ul>
+    <% order.items.sort_by(&method(:sort_items)).each do |item| %>
+      <%= form_with(model: item, local: true) do |form| %>
+        <%= form.select :club_id, Club.get_options, {}, { class: '' } %>
+
+        <%= form.text_field :value %>
+
+        <%= form.label :patch_type_id %>
+        <%= form.select :patch_type_id, PatchType.all.map { |p| [p.name, p.id] }, { selected: item.patch_type_id } %>
+
+        <%= form.select :approval_status, Item.approval_statuses.keys %>
+
+        <%= form.submit class: 'btn btn-sm btn-success' %>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <p>
+    <%= link_to 'Confirmer la commande', admin_order_confirm_path(id: order.id), class: 'btn btn-primary'  %>
+  </p>
+<% end %>

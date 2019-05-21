@@ -1,0 +1,23 @@
+<h2>Commande</h2>
+
+<table class="table">
+  <thead>
+    <% @orders.keys.each do |patch_type| %>
+      <th><%= @descriptions["patch_#{patch_type}_description"] %></th>
+    <% end %>
+  </thead>
+
+  <tbody>
+    <% @rows.each do |items| %>
+      <tr>
+        <% items.each do |item| %>
+          <td>
+            <% if item %>
+              <%= link_to item.full_text, admin_order_path(id: item.order_id)  %>
+            <% end %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

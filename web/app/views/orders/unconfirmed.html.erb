@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col">
+    <h2>Patch</h2>
+
+
+    <% if @order.unconfirmed? %>
+      <%= form_for(@order.items.build) do |f| %>
+        <div class="form-group">
+          <%= f.label :club_id, 'Regroupement'  %>
+          <%= f.select :club_id, Club.get_options, {}, { class: 'form-control' } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :value, 'Value'  %>
+          <%= f.text_field :value, { class: 'form-control' }  %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :founder, 'Fondateur'  %>
+          <%= f.check_box :founder %>
+        </div>
+
+        <%= f.hidden_field :order_id  %>
+
+        <div class="actions">
+          <%= f.submit 'Ajouter', { class: 'btn btn-primary' } %>
+        </div>
+
+      <% end %>
+    <% else %>
+
+    <% end %>
+  </div>
+  <div class="col-4">
+    <h2>Panier</h2>
+    <h4>Patch bras</h4>
+    <ul>
+      <% @items.select { |item| item.club_id }.each do |item| %>
+        <%= render 'patch', item: item, remove: @order.unconfirmed?  %>
+      <% end %>
+    </ul>
+    <h4>Autre patch</h4>
+    <ul>
+      <% @items.select { |item| not item.club_id }.each do |item| %>
+        <%= render 'patch', item: item, remove: @order.unconfirmed?  %>
+      <% end %>
+    </ul>
+    <p>
+      Prix total: <%= Config.get('custom_patch_price').to_i * @items.size %> $
+    </p>
+
+
+    <% if @order.unconfirmed? %>
+      <p>
+        <%= link_to 'Payer', order_pay_url(@order), method: :post %>
+      </p>
+    <% end %>
+  </div>
+</div>

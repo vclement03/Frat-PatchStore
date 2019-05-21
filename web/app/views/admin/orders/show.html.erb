@@ -1,0 +1,9 @@
+<h2>Commande de <%= @order.full_name %> - <%= @order.email  %></h2>
+
+<%= render 'order', order: @order %>
+
+<hr/>
+
+<p>
+  <%= link_to 'Retour', admin_orders_path, class: 'btn btn-warning'  %>
+</p>

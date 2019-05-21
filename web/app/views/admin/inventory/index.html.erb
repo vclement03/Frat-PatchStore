@@ -1,0 +1,28 @@
+<h2>Inventaire</h2>
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <a href="?filter=all" class="btn btn-secondary <%= @current_status == 'all' and 'active'  %>">
+    Tous
+  </a>
+  <a href="?filter=ordered" class="btn btn-secondary <%= @current_status == 'ordered' and 'active'  %>">
+    Commandé
+  </a>
+  <a href="?filter=ready_for_pickup" class="btn btn-secondary <%= @current_status == 'ready_for_pickup' and 'active'  %>">
+    Prêt à ramasser
+  </a>
+  <a href="?filter=archived" class="btn btn-secondary <%= @current_status == 'archived' and 'active'  %>">
+    Archivé
+  </a>
+
+</div>
+
+<table class="table">
+  <thead>
+    <th>Date</th>
+    <th>Nom</th>
+    <th>Nombre d'items</th>
+  </thead>
+  <tbody>
+    <tr></tr>
+  </tbody>
+</table>

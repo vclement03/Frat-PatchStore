@@ -1,0 +1,14 @@
+<li>
+  <%
+  cls = "badge-dark"
+  cls = "badge-light" if not item.odd? and item.club_id
+  cls = "badge-danger" if item.founder?
+  %>
+
+  <span class="badge <%= cls %>">
+    <%= item.full_text %>
+  </span>
+
+  <br>
+  <small><%= link_to 'Retirer', item, method: :delete, data: { confirm: 'Are you sure?' } %></small>
+</li>

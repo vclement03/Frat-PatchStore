@@ -1,0 +1,22 @@
+// Place all the styles related to the patch_types controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.patch {
+    border: 3px solid black;
+    display: inline-block;
+    font-size: 40px;
+    font-weight: bold;
+    width: 300px;
+    height: 100px;
+    line-height: 100px;
+    vertical-align: center;
+
+    text-align: center;
+    border-radius: 10px;
+}
+
+.patch span {
+    display: block;
+    transform: scale(0.5, 1);
+}

@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <th>Type de patch</th>
+    <th>Texte</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% order.items.each do |item| %>
+      <tr>
+        <td>
+          <%= item.official? ? 'Bras' : 'Non bras'  %>
+        </td>
+        <td>
+          <%= item.full_text  %>
+        </td>
+        <td>
+          <%= item.refused? ? 'Refusé' : '' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Résumé</h3>
+
+<ul class="list-group">
+  <li class="list-group-item"><b>Total de la commande</b>: <%= order.total_price  %>$</li>
+  <li class="list-group-item"><b>Montant à rembourser</b>: <%= order.total_refund  %>$</li>
+  <li class="list-group-item"><b>Montant final</b>: <%= order.total_price - order.total_refund  %>$</li>
+</ul>
