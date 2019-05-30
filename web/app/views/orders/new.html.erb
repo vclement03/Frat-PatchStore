@@ -1,6 +1,9 @@
-<h1>Commande de patch</h1>
+<div id="page_title">
+  <h3>Demande d'écussons</h3>
+</div>
 
 <%= form_with(model: @order, local: true) do |form| %>
+
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <% @order.errors.full_messages.each do |message| %>
@@ -9,15 +12,190 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :full_name, 'Nom complet' %>
-    <%= form.text_field :full_name, { class: 'form-control' } %>
-  </div>
+  <div id="content">
+    <div class="container mb-5">
+      <div class="row">
+        <!-- Col #1 -->
+        <div class="col-xs-12 col-md-6 col-lg-6">
+          <div class="form_title">
+            <p>CONTACT</p>
+          </div>
+          <div class="form-group row">
+            <%= form.label :full_name, 'Nom complet', {class: 'col-sm-3 col-form-label', for: 'name'} %>
+            <div class="col-sm-9">
+              <%= form.text_field :full_name, {class: 'form-control', placeholder: 'John Doe', type: 'name'} %>
+            </div>
+          </div>
 
-  <div class="form-group">
-    <%= form.label :email, 'Adresse courriel' %>
-    <%= form.text_field :email, { class: 'form-control' } %>
-  </div>
+          <div class="form-group row">
+            <%= form.label :full_name, 'Courriel', {class: 'col-sm-3 col-form-label', for: 'email'} %>
+            <div class="col-sm-9">
+              <%= form.text_field :email, {class: 'form-control', placeholder: 'exemple@courriel.com', type: 'email'} %>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="form_title">
+            <p>VOTRE PATCH</p>
+          </div>
+
+          <div class="alert message alert-danger" role="alert"> Votre patch n'est pas complète</div>
+          <div class="alert message alert-success" role="alert"> Votre patch à été ajoutée</div>
+
+          <div class="form-group row">
+            <%= form.label :type_de_patch, 'Type de Patch', {class: 'col-sm-3 col-form-label', for: 'group', id: 'lblTypeDePatch'} %>
+            <div class="col-sm-9">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <% ['1','2','3','4'].each do |patch| %>
+                  <label class="btn btn-light">
+                    <%= radio_button_tag 'patch', patch, @poll_option == patch,{class:'type', autocomplete:'off'} %>
+                    <%= patch %>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Select for all type of patch -->
+          <!-- /// Régulière /// -->
+          <div class="form-group row patch1">
+            <label for="group" class="col-sm-3 col-form-label">Regroupement</label>
+            <div class="col-sm-9">
+              <%= form.select :club_id, Club.all.map {|c| [c.name, c.id]}, {prompt: '-- Choisir un regroupement --'}, {class: 'form-control', name: 'group', id: "group"} %>
+            </div>
+          </div>
+          <div class="form-group row patch1">
+            <label for="semester" class="col-sm-3 col-form-label">Session</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="semester" name="semester" disabled="disabled">
+                <option value="">-- Choisir une session --</option>
+                <option value="A">Automne</option>
+                <option value="H">Hiver</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- /// Graduation /// -->
+          <div class="form-group row patch2">
+            <label for="cycle" class="col-sm-3 col-form-label">Cycle</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="cycle" name="cycle">
+                <option value="">-- Choisir un cycle --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row patch2">
+            <label for="program" class="col-sm-3 col-form-label">Département</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="program" name="program">
+                <option value="">-- Choisir un département --</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- /// Personnalisée /// -->
+          <div class="form-group row patch3">
+            <label for="group" class="col-sm-3 col-form-label">Texte</label>
+            <div class="col-sm-9">
+              <%= form.text_field :value, {class: 'form-control', id: 'text', name: 'text', placeholder: 'Texte'} %>
+            </div>
+          </div>
+
+          <!-- Select years -->
+          <div class="form-group row patch2 patch1">
+            <label for="email" class="col-sm-3 col-form-label">Année</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="year" name="year">
+                <option value="">-- Choisir l'année --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group form-submit row">
+            <div class="col-sm-12">
+              <button id="addPatch" type="button" class="btn btn-primary">Enregistrer et ajouter au panier</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col #2 -->
+        <div class="col-xs-12 col-md-6 col-lg-6">
+          <div class="form_title">
+            <p>APERÇU</p>
+          </div>
+
+          <!-- Content edit by script -->
+          <div id="patch_preview" class="year_odd">
+            <p><span>-</span> <span></span><span>-</span></p>
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">À savoir</h4>
+            <p>La prochaine commande de patch aura lieu le <b>5 décembre 2018</b> <br> Assurez vous que votre demande à
+            bien été validée en vérifiant la confirmation envoyée par courriel.</p>
+            <hr>
+            <p class="mb-0">*Notez qu'il est interdit de commande une patch pour l'année en cours</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="order" class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+          <div class="form_title">
+            <p>VOTRE COMMANDE</p>
+          </div>
+
+          <table id="line_order" class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" width="60%">Contenu</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+                <th scope="col" class="aRight">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td colspan=5 align="center"> -- Aucune patch ajouté à la commande --</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+        <div id="order_total" class="row justify-content-end">
+          <div class="col-3">
+            <ul>
+              <li><b>Sous-total</b> <span id="subtotal">0.00</span></li>
+              <li><b>T.P.S.</b> <span id="tps">0.00</span></li>
+              <li><b>T.V.Q.</b> <span id="tvq">0.00</span></li>
+              <li><b>Total</b> <span id="total">0.00</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-submit">
+          <button type="submit" class="btn btn-success">Payer votre facture</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  ______________________________________________________________________________________________________________________
+  <br>
 
   <div class="form-group">
     <%= form.submit 'Débuter la commande', class: 'btn btn-primary' %>
