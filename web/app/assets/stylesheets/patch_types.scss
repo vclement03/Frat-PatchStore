@@ -20,3 +20,59 @@
     display: block;
     transform: scale(0.5, 1);
 }
+
+
+body{
+    background:url('/assets/patchBG_white.jpg');
+}
+#header{border-bottom:1px solid #ccc;}
+#navbarSupportedContent{
+    padding-left:25px;
+}
+#navbarSupportedContent p{
+    margin:0;
+    font-size:34px;
+}
+#navbarSupportedContent p b{
+    font-size:44px;
+    font-weight:500
+}
+.whiteContainer{
+    background:#fff;
+    margin:5% auto 0;
+    padding:25px;
+
+    border-bottom:1px solid #ccc;
+}
+.form-submit{text-align:center;}
+.projectName{
+    font-size:30px;
+
+}
+.newMember{
+    border-left:1px solid #ccc;
+    text-align:center;
+}
+.newMember img{
+    width:145px;
+    opacity:0.5
+}
+#login_form p{
+    color:#9c9c9c;
+    padding:10px 0;
+    font-size:25px;
+}
+#login_form div{
+    text-align:center;
+}
+.alreadyMember{
+    padding-top:7%;
+}
+#subheader{
+    background:#e6e4e4;
+}
+#subheader .nav-item.active{
+    font-weight:500;
+}
+.btn{color:#fff!important;}
+.alert{display:none;}

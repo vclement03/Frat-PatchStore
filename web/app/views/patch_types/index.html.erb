@@ -1,26 +1,78 @@
-<p id="notice"><%= notice %></p>
+<div id="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <p>PATCH<b>ETS</b> <small>- Panneau d'administration</small></p>
+      </div>
+    </nav>
+  </div>
+</div>
+<div id="subheader">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="admin">Tableau de bord</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="clubs">Regroupement</a> </li>
+          <li class="nav-item active"> <a class="nav-link" href="patch_type">Type de Regroupement</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="admin/orders">Demandes</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="admin/login.html?status=loggedOut"><small>Déconnexion</small></a> </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+<div id="content">
+  <div class="container mb-5 whiteContainer">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12 mb-5">
+        <h2>Gestion des Types de Regroupement</h2>
+      </div>
+    </div>
 
-<h1>Patch Types</h1>
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <!-- ALERTS -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Le type de regroupement à bien été modifié.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Une erreur s'est produite lors de la modification.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- // END ALERTS -->
+        <%= link_to 'Ajouter un type', new_patch_type_path, {class: 'btn btn-primary btn-sm'}%>
+        <br><br>
+        <table id="groups" class="table table-striped table-bordered table-sm" style="width:100%">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th class="no-sort">Action</th>
+          </tr>
+          </thead>
+          <tbody id="fillByCSV">
+          <% @patch_types.each do |patch_type| %>
+            <tr data-id="0">
+              <td><%= patch_type.name %></td>
+              <td class="fit">
+                <%= link_to 'Modifier', edit_patch_type_path(patch_type), {class: 'btn btn-primary btn-sm'}%>
+                <%= link_to 'Supprimer', patch_type,class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure?'}%>
+              </td>
+            </tr>
+          <%end %>
 
-  <tbody>
-    <% @patch_types.each do |patch_type| %>
-      <tr>
-        <td><%= patch_type.name %></td>
-        <td><%= link_to 'Show', patch_type %></td>
-        <td><%= link_to 'Edit', edit_patch_type_path(patch_type) %></td>
-        <td><%= link_to 'Destroy', patch_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <br>
 
