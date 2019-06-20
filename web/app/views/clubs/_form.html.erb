@@ -4,39 +4,74 @@
       <h2><%= pluralize(club.errors.count, "error") %> prohibited this club from being saved:</h2>
 
       <ul>
-      <% club.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% club.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Nom du regroupement</label>
+    <div class="col-7">
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :value_type %>
-    <%= form.select :value_type, Club.value_types.keys, { selected: club.value_type } %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Type d'implication</label>
+    <div class="col-4">
+      <%= form.select :patch_types, PatchType.all.map { |p| [p.name, p.id] }, { selected: club.patch_types.pluck(:id) }, { class: 'form-control' } %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.text_field :start_date, type: 'date' %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Type d'implication</label>
+    <div class="col-4">
+      <%= form.select :value_type, Club.value_types.keys, { selected: @club.value_type } , { class: 'form-control' }%>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :end_date %>
-    <%= form.text_field :end_date, type: 'date' %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Date de création</label>
+    <div class="col-4">
+      <%= form.text_field :start_date, class: 'form-control datepicker' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :patch_types %>
-    <%= form.select :patch_types, PatchType.all.map { |p| [p.name, p.id] }, { selected: club.patch_types.pluck(:id) }, { multiple: true } %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Date de fermeture</label>
+    <div class="col-4">
+      <%= form.text_field :end_date, class: 'form-control datepicker' %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Le regroupement est-il actif?</label>
+    <div class="col-4">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <%if @club.end_date.nil? %>
+          <label class="btn btn-light btn-sm active">
+            <input class="formState" type="radio" name="options" id="state1" autocomplete="off" checked> Actif
+          </label>
+          <label class="btn btn-light btn-sm">
+            <input class="formState" type="radio" name="options" id="state2" autocomplete="off"> Inactif
+          </label>
+        <%else %>
+          <label class="btn btn-light btn-sm">
+            <input class="formState" type="radio" name="options" id="state1" autocomplete="off"> Actif
+          </label>
+          <label class="btn btn-light btn-sm active">
+            <input class="formState" type="radio" name="options" id="state2" autocomplete="off" checked> Inactif
+          </label>
+        <%end %>
+      </div>
+    </div>
   </div>
-<% end %>
+
+  <div class="form-group row">
+    <div class="col-xs-12 col-md-12 col-lg-12 aRight">
+      <a class="btn btn-danger btn-sm" href="../../clubs"> Annuler</a>
+      <%= form.submit class: 'btn btn-success btn-sm'%>
+    </div>
+  </div>
+<%end%>
