@@ -29,7 +29,7 @@ class PatchTypesController < ApplicationController
     respond_to do |format|
       if @patch_type.save
         format.html { redirect_to @patch_type, notice: 'Patch type was successfully created.' }
-        format.json { render :show, status: :created, location: @patch_type }
+        format.json { render :index, status: :created, location: @patch_type }
       else
         format.html { render :new }
         format.json { render json: @patch_type.errors, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class PatchTypesController < ApplicationController
     respond_to do |format|
       if @patch_type.update(patch_type_params)
         format.html { redirect_to @patch_type, notice: 'Patch type was successfully updated.' }
-        format.json { render :show, status: :ok, location: @patch_type }
+        format.json { render :index, status: :ok, location: @patch_type }
       else
         format.html { render :edit }
         format.json { render json: @patch_type.errors, status: :unprocessable_entity }

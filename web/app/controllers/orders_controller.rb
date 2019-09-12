@@ -23,6 +23,12 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+
+    # Also create item
+    # Si ca marche, fais juste sauvegarder toutes
+    # les infos dans un object quelconque
+    @item = Item.new
+
   end
 
   # GET /orders/1/edit
@@ -34,9 +40,18 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
+    # Check comment get tes items de l'object
+    #@item = Item.new(item_params)
+
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        #apres avoir sauvegarder ton order, link le aux items que tu veux creer
+        # si t'en cree plusieurs, mets les dans un array d'objects pis itere à travers
+        # pour les sauvegarder
+        # item = @item
+        #item.order = @order.id
+        # item.save
+        format.html { redirect_to @order, notice: @order.items }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }

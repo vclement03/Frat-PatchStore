@@ -26,3 +26,129 @@
     <%= link_to 'Confirmer la commande', admin_order_confirm_path(id: order.id), class: 'btn btn-primary'  %>
   </p>
 <% end %>
+
+<div id="popup">
+  <div class="container whiteContainer">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <h3>Le bon de commande à été généré.</h3>
+        <p>Vous pouvez le télécharger pour en approuver le contenu ou l'envoyer directement au fournisseur ( <i>fournisseur@fournisseur.ca</i> )</p><br>
+        <p class="aRight"><button class="btn btn-info btn-sm">Télécharger</button> <button class="btn btn-info btn-sm">Envoyer au fournisseur</button></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="popopOverlay"></div>
+
+<div id="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <p>PATCH<b>ETS</b> <small>- Panneau d'administration</small></p>
+      </div>
+    </nav>
+  </div>
+</div>
+<div id="subheader">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="admin/dashboard.html">Tableau de bord</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="admin/groups/listing.html">Regroupement</a> </li>
+          <li class="nav-item active"> <a class="nav-link" href="admin/orders/listing.html">Demandes</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="admin/login.html?status=loggedOut"><small>Déconnexion</small></a> </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<div id="content">
+  <div class="container mb-5 whiteContainer">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12 mb-5">
+        <h2>Gestion des demandes <a class="btn btn-info bnt-lg" style="float:right" href="admin/orders/generateOrder.html">Générer une commande avec les demandes approuvés</a></h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12 mb-5">
+        <p>Actions groupées:</p>
+        <button id="approuveSelected" class="btn btn-success btn-sm" href="" disabled>Approuver</button> <button id="refuseSelected" class="btn btn-danger btn-sm" href="" disabled>Refuser</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <!-- ALERTS -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          La demande à bien été modifiée.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Une erreur s'est produite lors de la modification.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- // END ALERTS -->
+
+        <table id="orders" class="table table-bordered table-sm" style="width:100%">
+          <thead>
+          <tr>
+            <th class="no-sort center"> <input type="checkbox" id="checkAll" /> </th>
+            <th>Demandeur</th>
+            <th>Courriel</th>
+            <th>Date</th>
+            <th>Écusson(s)</th>
+            <th>Prix</th>
+            <th>Statut</th>
+
+            <th class="no-sort">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @orders.each do |order| %>
+          <tr>
+            <td class="center"> <input class="checkRow" type="checkbox" /> </td>
+            <td><%= order.full_name %></td>
+            <td><%= order.email %></td>
+            <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
+            <td>
+              <ul class="lineOrder">
+                <% order.items.sort_by(&method(:sort_items)).each do |item| %>
+                  <li><button type="button" class="btn btn-link btn-sm" data-template="<div class='tooltip year_odd'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>" data-toggle="tooltip" data-html="true" data-placement="top" title="<p><%= item.value %></p>">1X <%= item.patch_type_id %> - <i><%= item.value %></i></button></li>
+                <% end %>
+              </ul>
+
+            </td>
+            <td class="aRight"><%= number_to_currency(order.items.count*4, :unit => "$")  %></td>
+
+            <% if order.status=="pending_approval" %>
+            <td class="fit center status"><span class="badge badge-warning"><%= order.status %></span></td>
+            <% end %>
+            <% if order.status=="approved" %>
+            <td class="fit center status"><span class="badge badge-success"><%= order.status %></span></td>
+            <% end %>
+            <% if order.status=="refused" %>
+            <td class="fit center status"><span class="badge badge-danger"><%= order.status %></span></td>
+            <% end %>
+            <td class="fit">
+              <a class="btn btn-success btn-sm" href="admin/orders/approuve.html?id=">Approuver</a>
+              <button class="btn btn-danger btn-sm">Refuser</button> <br>
+              <a class="btn btn-light btn-sm" style="width:97%" href="admin/orders/edit.html?id=">Modifier</a>
+            </td>
+          </tr>
+          <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

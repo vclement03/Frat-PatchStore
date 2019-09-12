@@ -47,10 +47,10 @@
             <%= form.label :type_de_patch, 'Type de Patch', {class: 'col-sm-3 col-form-label', for: 'group', id: 'lblTypeDePatch'} %>
             <div class="col-sm-9">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <% ['1','2','3','4'].each do |patch| %>
-                  <label class="btn btn-light">
-                    <%= radio_button_tag 'patch', patch, @poll_option == patch,{class:'type', autocomplete:'off'} %>
-                    <%= patch %>
+
+                <% PatchType.all.map  do |patch| %>
+                  <label class="btn btn-light patchtype" for="patch_<%=patch.name %>"><%= patch.name %>
+                  <%= radio_button_tag 'patch', patch.name, @poll_option == patch %>
                   </label>
                 <% end %>
               </div>
@@ -62,7 +62,7 @@
           <div class="form-group row patch1">
             <label for="group" class="col-sm-3 col-form-label">Regroupement</label>
             <div class="col-sm-9">
-              <%= form.select :club_id, Club.all.map {|c| [c.name, c.id]}, {prompt: '-- Choisir un regroupement --'}, {class: 'form-control', name: 'group', id: "group"} %>
+              <%= form.select :club_id, Club.all.map {|c| [c.name,c.id] if c.patch_types.ids==[1] }.compact, {prompt: '-- Choisir un regroupement --'}, {class: 'form-control', name: 'group', id: "group"} %>
             </div>
           </div>
           <div class="form-group row patch1">
@@ -82,6 +82,9 @@
             <div class="col-sm-9">
               <select class="form-control" id="cycle" name="cycle">
                 <option value="">-- Choisir un cycle --</option>
+                <option value="BACC">Baccalauréat</option>
+                <option value="">Maîtrise</option>
+                <option value="DOC">Doctorat</option>
               </select>
             </div>
           </div>
@@ -89,9 +92,7 @@
           <div class="form-group row patch2">
             <label for="program" class="col-sm-3 col-form-label">Département</label>
             <div class="col-sm-6">
-              <select class="form-control" id="program" name="program">
-                <option value="">-- Choisir un département --</option>
-              </select>
+              <%= form.select :club_id, Club.all.map {|c| [c.name,c.id] if c.patch_types.ids==[3] }.compact, {prompt: '-- Choisir un département --'}, {class: 'form-control', name: 'program', id: "program"} %>
             </div>
           </div>
 

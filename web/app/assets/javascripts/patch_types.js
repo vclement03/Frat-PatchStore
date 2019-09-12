@@ -30,9 +30,9 @@ $(document).ready(function() {
         }
     });
 
-    var isSuccess = getUrlParameter('modif');
+    /*var isSuccess = getUrlParameter('modif');
     if (isSuccess == "success")
         $(".alert-success").css("display", "block");
     if (isSuccess == "error")
-        $(".alert-danger").css("display", "block");
+        $(".alert-danger").css("display", "block");*/
 });

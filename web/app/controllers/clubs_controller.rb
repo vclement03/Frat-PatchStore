@@ -5,6 +5,7 @@ class ClubsController < ApplicationController
   # GET /clubs.json
   def index
     @clubs = Club.all
+    @patchtype = PatchType.all
   end
 
   # GET /clubs/1
@@ -28,8 +29,8 @@ class ClubsController < ApplicationController
 
     respond_to do |format|
       if @club.save
-        format.html { redirect_to @club, notice: 'Club was successfully created.' }
-        format.json { render :show, status: :created, location: @club }
+        format.html { redirect_to clubs_url, notice: 'Club was successfully created.' }
+        format.json { render :index, status: :created, location: @club }
       else
         format.html { render :new }
         format.json { render json: @club.errors, status: :unprocessable_entity }
@@ -42,8 +43,8 @@ class ClubsController < ApplicationController
   def update
     respond_to do |format|
       if @club.update(get_updated_params)
-        format.html { redirect_to @club, notice: 'Club was successfully updated.' }
-        format.json { render :show, status: :ok, location: @club }
+        format.html { redirect_to clubs_url, notice: 'Club was successfully updated.' }
+        format.json { render :index, status: :ok, location: @club }
       else
         format.html { render :edit }
         format.json { render json: @club.errors, status: :unprocessable_entity }
@@ -69,14 +70,14 @@ class ClubsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
-      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_types => [])
+      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_types)
     end
 
     def get_updated_params
       club_params.to_h.tap { |params|
-        patch_types_ids = params['patch_types'].map { |p| p.to_i }.select { |p| p > 0 }
+        patch_types_ids = params['patch_types'].to_i
 
-        params['patch_types'] = PatchType.where(id: patch_types_ids).to_a
+        params['patch_types'] = [PatchType.find(patch_types_ids)]
       }
     end
 end

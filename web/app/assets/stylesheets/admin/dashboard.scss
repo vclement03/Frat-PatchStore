@@ -1,3 +1,54 @@
 // Place all the styles related to the admin/dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body{
+  background:url('images/patchBG_white.jpg');
+}
+#header{background:#fff; border-bottom:1px solid #ccc;}
+#navbarSupportedContent{
+  padding-left:25px;
+}
+#navbarSupportedContent p{
+  margin:0;
+  font-size:34px;
+}
+#navbarSupportedContent p b{
+  font-size:44px;
+  font-weight:500
+}
+.whiteContainer{
+  background:#fff;
+  margin:5% auto 0;
+  padding:25px;
+
+  border-bottom:1px solid #ccc;
+}
+.form-submit{text-align:center;}
+.projectName{
+  font-size:30px;
+
+}
+#subheader{
+  background:#e6e4e4;
+}
+#subheader .nav-item.active{
+  font-weight:500;
+}
+.nav-item small {
+  font-size:65%;
+}
+.infoBox{
+  padding:30px;
+  font-size:17px;
+}
+.infoBox p{
+  margin:0;
+  line-height:125%;
+}
+.infoBox .emphasis{
+  text-align:left;
+  font-weight:bold;
+  font-size:30px;
+  display:inherit;
+}

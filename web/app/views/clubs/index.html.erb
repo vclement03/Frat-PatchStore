@@ -54,6 +54,7 @@
           <thead>
           <tr>
             <th>Nom</th>
+            <th>Type</th>
             <th>Date de création</th>
             <th>Date de fermeture</th>
             <th>Statut</th>
@@ -65,7 +66,12 @@
           <% @clubs.each do |club| %>
           <tr data-id="0">
             <td><%= club.name %></td>
-            <td class="center"><%= club.start_date %></td>
+            <td><%= club.patch_types.pluck(:name)[0] %></td>
+            <%if club.start_date.nil? %>
+              <td class="center"> - </td>
+            <%else%>
+              <td class="center"><%= club.start_date %></td>
+            <%end%>
             <%if club.end_date.nil? %>
               <td class="center"> - </td>
               <td class="fit center">

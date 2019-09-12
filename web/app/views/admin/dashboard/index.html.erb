@@ -4,3 +4,109 @@
   <li><%= link_to "#{@order_max} commandes en attente de confirmation", admin_orders_path %></li>
   <li><%= link_to "#{@order_count} commandes confirmés", admin_form_path %></li>
 </ul>
+
+<div id="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <p>PATCH<b>ETS</b> <small>- Panneau d'administration</small></p>
+      </div>
+    </nav>
+  </div>
+</div>
+<div id="subheader">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"> <a class="nav-link" href="../../admin">Tableau de bord</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="../../clubs">Regroupement</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="../../patch_types">Type de Regroupement</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="../../orders">Demandes</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="admin/login.html?status=loggedOut"><small>Déconnexion</small></a> </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div id="content">
+  <div class="container mb-5 whiteContainer">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12 mb-5">
+        <h2>Tableau de bord</h2>
+      </div>
+    </div>
+
+    <div class="row mb-5" style="border-bottom:1px solid">
+      <div class="col-xs-12 col-md-3 col-lg-3">
+        <div class="infoBox">
+          <p><span class="emphasis" ><%= link_to "#{@order_max}", admin_orders_path %></span> <br> Nouvelle(s) demande(s)</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-3 col-lg-3" style="background:#f5f5f5">
+        <div class="infoBox">
+          <p><span class="emphasis"><%= link_to "#{@order_count}" , admin_form_path %></span> <br> Demande(s) confirmée(s)</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-3 col-lg-3">
+        <div class="infoBox">
+          <p><span class="emphasis">8</span> <br> Écusson(s) au total</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-3 col-lg-3" style="background:#f5f5f5">
+        <div class="infoBox">
+          <p><span class="emphasis">36.00 $</span> <br> D'écussons vendu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-10 col-lg-10" style="margin:auto;">
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Fermeture des demandes</label>
+          <div class="col-9">
+            <input type="text" name="formClose" class="form-control datepicker" value="11 décembre 2018" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Prochaine commande</label>
+          <div class="col-9">
+            <input type="text" name="nextOrder" class="form-control datepicker" value="15 décembre 2018" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label">État du formulaire de demande</label>
+          <div class="col-4">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-light btn-sm active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Actif
+              </label>
+              <label class="btn btn-light btn-sm">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Inactif
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Courriel du fournisseur</label>
+          <div class="col-9">
+            <input type="text" name="providerEmail" class="form-control" value="fournisseur@fournisseur.ca" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-12 aRight">
+            <input type="submit" class="btn btn-success btn-sm" value="Enregistrer les configurations" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

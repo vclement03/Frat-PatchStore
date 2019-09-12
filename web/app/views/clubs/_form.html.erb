@@ -20,7 +20,7 @@
   <div class="form-group row">
     <label class="col-3 col-form-label">Type d'implication</label>
     <div class="col-4">
-      <%= form.select :patch_types, PatchType.all.map { |p| [p.name, p.id] }, { selected: club.patch_types.pluck(:id) }, { class: 'form-control' } %>
+      <%= form.select :'patch_types', PatchType.all.map { |p| [p.name, p.id] }, { selected: club.patch_types.pluck(:id) }, {class: 'form-control' } %>
     </div>
   </div>
 
