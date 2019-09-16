@@ -1,6 +1,6 @@
 FROM ruby:2.5-slim
-
-RUN apt-get update && apt-get install -y sqlite3 build-essential patch ruby-dev zlib1g-dev liblzma-dev libsqlite3-dev nodejs libcurl3 curl
+ 
+RUN apt-get update && apt-get install -y build-essential patch ruby-dev zlib1g-dev liblzma-dev libsqlite3-dev nodejs libcurl4 curl postgresql-client libpq-dev
 
 RUN gem install bundler
 
@@ -10,14 +10,16 @@ WORKDIR /app
 
 COPY Gemfile Gemfile
 
-RUN bundle --without development test
+RUN bundle install
 
 COPY . .
 
-RUN bundle --without development test
-
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-RUN rails RAILS_ENV=production SECRET_KEY_BASE=asdf assets:precompile
+EXPOSE 3000
 
-CMD bundle exec puma -e production
+#RUN rails RAILS_ENV=production SECRET_KEY_BASE=asdf assets:precompile
+#CMD bundle exec puma -e production
+
+# Start the main process.
+CMD ["rails", "server", "-b", "0.0.0.0"]

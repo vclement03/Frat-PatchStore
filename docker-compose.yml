@@ -1,13 +1,23 @@
-version: '3'
+version: "3"
 services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
   web:
     build: ./web
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./web/:/app
     environment:
-      - RAILS_ENV=production
       - SECRET_KEY_BASE=ansdlkfandflnsadflkdsanf
-
     ports:
       - 3000:3000
-
+    depends_on:
+      - db

@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2018_10_23_152012) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "clubs", force: :cascade do |t|
     t.string "name"
     t.integer "value_type"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 2018_10_23_152012) do
   end
 
   create_table "clubs_patch_types", id: false, force: :cascade do |t|
-    t.integer "club_id", null: false
-    t.integer "patch_type_id", null: false
+    t.bigint "club_id", null: false
+    t.bigint "patch_type_id", null: false
     t.index ["club_id", "patch_type_id"], name: "index_clubs_patch_types_on_club_id_and_patch_type_id"
     t.index ["patch_type_id", "club_id"], name: "index_clubs_patch_types_on_patch_type_id_and_club_id"
   end
