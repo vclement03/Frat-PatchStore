@@ -17,6 +17,8 @@ services:
       - ./web/:/app
     environment:
       - SECRET_KEY_BASE=ansdlkfandflnsadflkdsanf
+      - HTTP_USER=admin
+      - HTTP_PASS=admin
     ports:
       - 3000:3000
     depends_on:

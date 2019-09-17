@@ -1,5 +1,13 @@
 class Admin::ClubsController < ApplicationController
+  protect_from_forgery
   before_action :set_club, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password| 
+      username == ENV['HTTP_USER'] && password == ENV['HTTP_PASS']
+    end
+  end
 
   # GET /clubs
   # GET /clubs.json
@@ -56,7 +64,7 @@ class Admin::ClubsController < ApplicationController
   def destroy
     @club.destroy
     respond_to do |format|
-      format.html { redirect_to clubs_url, notice: 'Club was successfully destroyed.' }
+      format.html { redirect_to admin_clubs_path, notice: 'Club was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

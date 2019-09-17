@@ -1,6 +1,14 @@
-class PatchTypesController < ApplicationController
+class Admin::PatchTypesController < ApplicationController
+  protect_from_forgery
   before_action :set_patch_type, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
 
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password| 
+      username == ENV['HTTP_USER'] && password == ENV['HTTP_PASS']
+    end
+  end
+  
   # GET /patch_types
   # GET /patch_types.json
   def index
