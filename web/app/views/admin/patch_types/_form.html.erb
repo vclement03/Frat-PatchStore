@@ -1,5 +1,5 @@
 
-<%= form_with(model: patch_type, local: true) do |form| %>
+<%= form_with(model: patch_type, url: patch_url, local: true) do |form| %>
   <% if patch_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(patch_type.errors.count, "error") %> prohibited this patch_type from being saved:</h2>
@@ -21,7 +21,7 @@
 
   <div class="form-group row">
     <div class="col-xs-12 col-md-12 col-lg-12 aRight">
-      <a class="btn btn-danger btn-sm" href="../../patch_types"> Annuler</a>
+      <%= link_to 'Annuler', admin_patch_types_path, class: 'btn btn-danger btn-sm' %>
       <%= form.submit class: 'btn btn-success btn-sm' %>
     </div>
   </div>

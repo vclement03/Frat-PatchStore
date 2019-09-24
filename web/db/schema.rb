@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_152012) do
+ActiveRecord::Schema.define(version: 2019_09_24_210510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2018_10_23_152012) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "patch_type_id"
+    t.index ["patch_type_id"], name: "index_clubs_on_patch_type_id"
   end
 
   create_table "clubs_patch_types", id: false, force: :cascade do |t|
@@ -65,4 +67,5 @@ ActiveRecord::Schema.define(version: 2018_10_23_152012) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "clubs", "patch_types"
 end

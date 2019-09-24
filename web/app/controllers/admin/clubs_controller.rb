@@ -32,11 +32,11 @@ class Admin::ClubsController < ApplicationController
   # POST /clubs
   # POST /clubs.json
   def create
-    @club = Club.new(get_updated_params)
+    @club = Club.new(club_params)
 
     respond_to do |format|
       if @club.save
-        format.html { redirect_to @club, notice: 'Club was successfully created.' }
+        format.html { redirect_to admin_clubs_path , notice: 'Club was successfully created.' }
         format.json { render :show, status: :created, location: @club }
       else
         format.html { render :new }
@@ -77,14 +77,12 @@ class Admin::ClubsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
-      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_types => [])
+      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_type)
     end
 
     def get_updated_params
       club_params.to_h.tap { |params|
-        patch_types_ids = params['patch_types'].map { |p| p.to_i }.select { |p| p > 0 }
-
-        params['patch_types'] = PatchType.where(id: patch_types_ids).to_a
+        params['patch_type'] = PatchType.find(id: params['patch_type'].to_i).to_a
       }
     end
 end

@@ -1,5 +1,5 @@
 class Club < ApplicationRecord
-  has_and_belongs_to_many :patch_types
+  belongs_to :patch_type
   has_many :items
 
   enum value_type: [:biannual_event, :annual_event, :year]

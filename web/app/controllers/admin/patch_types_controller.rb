@@ -36,7 +36,7 @@ class Admin::PatchTypesController < ApplicationController
 
     respond_to do |format|
       if @patch_type.save
-        format.html { redirect_to @patch_type, notice: 'Patch type was successfully created.' }
+        format.html { redirect_to admin_patch_types_path, notice: 'Patch type was successfully created.' }
         format.json { render :index, status: :created, location: @patch_type }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class Admin::PatchTypesController < ApplicationController
   def update
     respond_to do |format|
       if @patch_type.update(patch_type_params)
-        format.html { redirect_to @patch_type, notice: 'Patch type was successfully updated.' }
+        format.html { redirect_to admin_patch_types_path, notice: 'Patch type was successfully updated.' }
         format.json { render :index, status: :ok, location: @patch_type }
       else
         format.html { render :edit }

@@ -51,6 +51,8 @@
         </div>
         <!-- // END ALERTS -->
 
+        <%= link_to 'Ajouter un club', new_admin_club_path, {class: 'btn btn-primary btn-sm'}%>
+        <br><br>
         <table id="groups" class="table table-striped table-bordered table-sm" style="width:100%">
           <thead>
           <tr>
@@ -59,7 +61,6 @@
             <th>Date de création</th>
             <th>Date de fermeture</th>
             <th>Statut</th>
-
             <th class="no-sort">Action</th>
           </tr>
           </thead>
@@ -67,7 +68,15 @@
           <% @clubs.each do |club| %>
           <tr data-id="0">
             <td><%= club.name %></td>
-            <td><%= club.patch_types.pluck(:name)[0] %></td>
+            <td>
+            <% if club.patch_types_id.present?%>
+            <%= club.patch_type.try(:name) %>
+             </br> 
+            <% end %>
+             <% if club.value_type.present?%>
+             <%= club.value_type%>
+             <% end%>
+            </td>
             <%if club.start_date.nil? %>
               <td class="center"> - </td>
             <%else%>
@@ -99,6 +108,3 @@
 
 <input id="csv" type="file" value="data/regroupements.csv">
 
-<br>
-
-<%= link_to 'New Club', new_admin_club_path %>
