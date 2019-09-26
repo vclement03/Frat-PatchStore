@@ -49,8 +49,8 @@ class Admin::ClubsController < ApplicationController
   # PATCH/PUT /clubs/1.json
   def update
     respond_to do |format|
-      if @club.update(get_updated_params)
-        format.html { redirect_to @club, notice: 'Club was successfully updated.' }
+      if @club.update(club_params)
+        format.html { redirect_to admin_clubs_path, notice: 'Club was successfully updated.' }
         format.json { render :show, status: :ok, location: @club }
       else
         format.html { render :edit }
@@ -77,12 +77,7 @@ class Admin::ClubsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
-      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_type)
+      params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_type_id)
     end
-
-    def get_updated_params
-      club_params.to_h.tap { |params|
-        params['patch_type'] = PatchType.find(id: params['patch_type'].to_i).to_a
-      }
-    end
+    
 end

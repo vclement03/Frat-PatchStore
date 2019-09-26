@@ -1,4 +1,4 @@
-<%= form_with(model: club, url: admin_clubs_path,  local: true) do |form| %>
+<%= form_with(model: club, url: club_url,  local: true) do |form| %>
   <% if club.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(club.errors.count, "error") %> prohibited this club from being saved:</h2>
@@ -19,7 +19,7 @@
   <div class="form-group row">
     <label class="col-3 col-form-label">Type de regroupement</label>
     <div class="col-4">
-      <%= form.collection_select :patch_type_id, PatchType.all, :id, :name  %>
+      <%= form.collection_select :patch_type_id, PatchType.all, :id, :name, {prompt: 'Choisissez un type'}  %>
     </div>
   </div>
 
