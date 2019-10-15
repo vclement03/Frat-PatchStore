@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+  root :to => 'pages#index'
 
-  namespace :admin do
-  end
-  get 'pages/index'
   namespace :admin do
     get '/' => 'dashboard#index'
     get '/form' => 'dashboard#order_form'
@@ -23,6 +22,8 @@ Rails.application.routes.draw do
   get '/orders/:id/check' => 'orders#check', as: 'order_check'
 
   resources :orders
+
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

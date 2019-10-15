@@ -22,28 +22,28 @@
   </head>
 
   <body>
-    <div id="header">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="nav navbar-light bg-light">
+        <!-- 
           <a class="navbar-brand" href="http://fraternitedupiranha.com/"> <img src="/assets/logo_frat.png" alt="Fraternité du piranha" height="100px"> </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/">Accueil</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/commanditaire/">Commanditaires</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/ecussons-2/">Écussons</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/reglements/">Réglements</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/mission/">Mission</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="http://fraternitedupiranha.com/ecussons/">Emplacement</a> </li>
-            </ul>
-          </div>
+          <a class="nav-link" href="http://fraternitedupiranha.com/">Accueil</a>
+          <a class="nav-link" href="http://fraternitedupiranha.com/commanditaire/">Commanditaires</a>
+          <a class="nav-link" href="http://fraternitedupiranha.com/ecussons-2/">Écussons</a>
+          <a class="nav-link" href="http://fraternitedupiranha.com/reglements/">Réglements</a>
+          <a class="nav-link" href="http://fraternitedupiranha.com/mission/">Mission</a>
+          <a class="nav-link" href="http://fraternitedupiranha.com/ecussons/">Emplacement</a>
+          -->
+          <%= link_to 'Commande', new_order_path, class: 'nav-link' %>
+          <%= link_to 'Enregistrer', new_user_registration_path, class: 'nav-link' %>
+          <%= link_to 'Connexion', new_user_session_path, class: 'nav-link' %>
+          <% if is_admin? %> <%= link_to 'Admin', admin_path, class: 'nav-link' %> <% end %>
         </nav>
-      </div>
-    </div>
     <div class="container">
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
       <%= yield %>
     </div>
   </body>

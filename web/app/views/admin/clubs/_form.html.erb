@@ -1,14 +1,6 @@
 <%= form_with(model: club, url: club_url,  local: true) do |form| %>
-  <% if club.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(club.errors.count, "error") %> prohibited this club from being saved:</h2>
-      <ul>
-        <% club.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%=render 'shared/errors', object: club %>
+  
   <div class="form-group row">
     <label class="col-3 col-form-label">Nom du regroupement</label>
     <div class="col-7">

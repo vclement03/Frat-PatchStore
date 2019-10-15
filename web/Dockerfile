@@ -1,4 +1,4 @@
-FROM ruby:2.5-slim
+FROM ruby:2.5.7-slim
  
 RUN apt-get update && apt-get install -y build-essential patch ruby-dev zlib1g-dev liblzma-dev libsqlite3-dev nodejs libcurl4 curl postgresql-client libpq-dev
 
