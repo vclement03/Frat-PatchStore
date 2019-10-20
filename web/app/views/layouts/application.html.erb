@@ -18,11 +18,24 @@
 
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-        <nav class="nav navbar-light bg-light">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to 'Commande', new_order_path, class: 'nav-link' %>
+            </li>
+            <% if is_admin? %> 
+              <li class="nav-item">
+                <%= link_to 'Admin', admin_path, class: 'nav-link' %> 
+              </li>
+            <% end %>
+          </ul>
+          
+          </div>
         <!-- 
           <a class="navbar-brand" href="http://fraternitedupiranha.com/"> <img src="/assets/logo_frat.png" alt="Fraternité du piranha" height="100px"> </a>
           <a class="nav-link" href="http://fraternitedupiranha.com/">Accueil</a>
@@ -32,11 +45,30 @@
           <a class="nav-link" href="http://fraternitedupiranha.com/mission/">Mission</a>
           <a class="nav-link" href="http://fraternitedupiranha.com/ecussons/">Emplacement</a>
           -->
-          <%= link_to 'Commande', new_order_path, class: 'nav-link' %>
-          <%= link_to 'Enregistrer', new_user_registration_path, class: 'nav-link' %>
-          <%= link_to 'Connexion', new_user_session_path, class: 'nav-link' %>
-          <% if is_admin? %> <%= link_to 'Admin', admin_path, class: 'nav-link' %> <% end %>
+          <ul class="navbar-nav ml-auto">
+            <% if !user_signed_in? %> 
+              <li class="nav-item">
+                <%= link_to 'Enregistrer', new_user_registration_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+            <%if !user_signed_in?%>
+              <li class="nav-item">
+                <%= link_to 'Connexion', new_user_session_path, class: 'nav-link' %> 
+              </li>
+            <% end %>
+            <%if user_signed_in?%>
+              <li class="navbar-text">
+                <%= current_user.email%>
+              </li>
+            <% end %>
+            <%if user_signed_in?%>
+              <li class="nav-item">
+                <%= link_to 'Déconnexion', destroy_user_session_path, class: 'nav-link', :method => 'delete' %> 
+              </li>
+            <% end %>
+          </ul>
         </nav>
+
     <div class="container">
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
@@ -48,5 +80,4 @@
     </div>
   </body>
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </html>

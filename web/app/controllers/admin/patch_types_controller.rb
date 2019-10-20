@@ -1,13 +1,7 @@
 class Admin::PatchTypesController < ApplicationController
   protect_from_forgery
   before_action :set_patch_type, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password| 
-      username == ENV['HTTP_USER'] && password == ENV['HTTP_PASS']
-    end
-  end
+  load_and_authorize_resource
   
   # GET /patch_types
   # GET /patch_types.json
@@ -33,7 +27,6 @@ class Admin::PatchTypesController < ApplicationController
   # POST /patch_types.json
   def create
     @patch_type = PatchType.new(patch_type_params)
-
     respond_to do |format|
       if @patch_type.save
         format.html { redirect_to admin_patch_types_path, notice: 'Patch type was successfully created.' }
@@ -62,10 +55,13 @@ class Admin::PatchTypesController < ApplicationController
   # DELETE /patch_types/1
   # DELETE /patch_types/1.json
   def destroy
-    @patch_type.destroy
     respond_to do |format|
-      format.html { redirect_to patch_types_url, notice: 'Patch type was successfully destroyed.' }
-      format.json { head :no_content }
+      if @patch_type.destroy
+        format.html { redirect_to patch_types_url, notice: 'Patch type was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html {render :index, notice: "Error deleting patch"}
+      end
     end
   end
 

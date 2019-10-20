@@ -1,14 +1,8 @@
 class Admin::DashboardController < ApplicationController
   protect_from_forgery
-  before_action :authenticate
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password| 
-      username == ENV['HTTP_USER'] && password == ENV['HTTP_PASS']
-    end
-  end
 
   def index
+    authorize! :read, current_user
     @order_count = Order.confirmed.size
     @order_max = Order.pending_approval.size
     @ratio = (@order_max + 1) / (@order_max + @order_count + 1)
@@ -31,4 +25,5 @@ class Admin::DashboardController < ApplicationController
       @rows << row
     end
   end
+
 end

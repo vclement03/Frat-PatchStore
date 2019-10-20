@@ -1,13 +1,8 @@
 class Admin::ClubsController < ApplicationController
+
   protect_from_forgery
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password| 
-      username == ENV['HTTP_USER'] && password == ENV['HTTP_PASS']
-    end
-  end
+  load_and_authorize_resource
 
   # GET /clubs
   # GET /clubs.json
@@ -33,7 +28,6 @@ class Admin::ClubsController < ApplicationController
   # POST /clubs.json
   def create
     @club = Club.new(club_params)
-
     respond_to do |format|
       if @club.save
         format.html { redirect_to admin_clubs_path , notice: 'Club was successfully created.' }
@@ -49,7 +43,8 @@ class Admin::ClubsController < ApplicationController
   # PATCH/PUT /clubs/1.json
   def update
     respond_to do |format|
-      if @club.update(club_params)
+      club = Club.find(params[:id])
+      if club.update(club_params)
         format.html { redirect_to admin_clubs_path, notice: 'Club was successfully updated.' }
         format.json { render :show, status: :ok, location: @club }
       else
@@ -62,10 +57,11 @@ class Admin::ClubsController < ApplicationController
   # DELETE /clubs/1
   # DELETE /clubs/1.json
   def destroy
-    @club.destroy
     respond_to do |format|
-      format.html { redirect_to admin_clubs_path, notice: 'Club was successfully destroyed.' }
-      format.json { head :no_content }
+      if @club.destroy 
+        format.html { redirect_to admin_clubs_path, notice: 'Club was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -79,5 +75,5 @@ class Admin::ClubsController < ApplicationController
     def club_params
       params.require(:club).permit(:name, :value_type, :start_date, :end_date, :patch_type_id)
     end
-    
+
 end

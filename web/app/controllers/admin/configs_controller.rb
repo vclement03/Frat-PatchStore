@@ -1,6 +1,7 @@
 class Admin::ConfigsController < ApplicationController
   before_action :set_config, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  
   # GET /configs
   # GET /configs.json
   def index

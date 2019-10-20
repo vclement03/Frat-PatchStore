@@ -22,8 +22,8 @@ gem 'bootstrap', '~> 4.3.1'
 # gem 'mini_racer', platforms: :ruby
 #Devise for authentication
 gem 'devise', '~> 4.2'
-# Pundit for authorization
-gem 'pundit', '~> 2.1.0'
+# CanCanCanan for authorization
+gem 'cancancan', '~> 3.0.1'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
